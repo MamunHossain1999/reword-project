@@ -2,24 +2,26 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 
-const Resipis = () => {
+const Resipis = ({handleAdd}) => {
     const [resipi, setResipi] = useState([])
 
+    
     useEffect(()=>{
       fetch('./resipis.json')
       .then(res => res.json())
       .then(data => setResipi(data))
     } ,[])
 
-    
+
 
     return (
-        <div className="w-2/3">
+        <div className="md:w-2/3">
             <h2  className="card-title text-3xl mb-5 text-purple-700">Resipis</h2>
             <div  className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+
             {resipi.map(resip=> <p  key={resip.recipe_id}>
                 <div className='w-full mx-auto border rounded-lg'>
-                    <figure className='px-7 py-3'>
+                    <figure className=':px-7 py-3'>
                         <img className='w-full h-72 rounded-lg'
                         src={resip.recipe_img}
                         alt="Shoes" />
@@ -42,7 +44,7 @@ const Resipis = () => {
                             </div>
                         </div>
                         <div className="card-actions ">
-                        <button className="btn bg-lime-400">Want to Cook</button>
+                        <button onClick={()=>handleAdd(resip)} className="btn bg-lime-400">Want to Cook</button>
                         </div>
                     </div>
                 </div>
